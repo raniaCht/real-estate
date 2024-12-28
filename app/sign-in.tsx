@@ -1,10 +1,30 @@
-import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import images from "@/constants/images";
 import icons from "@/constants/icons";
+import { login } from "@/lib/appwrite";
 
 const SignIn = () => {
+  const handleSignIn = async () => {
+    try {
+      const response = await login();
+      if (response) {
+        console.log("Logged in");
+      } else {
+        Alert.alert("Failed to login");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <SafeAreaView className="bg-white h-full">
       <ScrollView contentContainerClassName="h-full flex flex-col justify-center items-center">
@@ -25,7 +45,7 @@ const SignIn = () => {
             Login to Real Mouhamed with Google
           </Text>
           <TouchableOpacity
-            onPress={() => {}}
+            onPress={handleSignIn}
             className=" shadow-md shadow-zinc-400 bg-red w-full py-2"
           >
             <View className="flex flex-row justify-center items-center gap-2">
